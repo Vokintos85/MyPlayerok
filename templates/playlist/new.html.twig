@@ -10,15 +10,10 @@
                     <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
                         <div>
                             <h1 class="h3 mb-2">Создание плейлиста</h1>
-                            <p class="text-muted mb-0">Дайте плейлисту название, чтобы начать наполнять его треками.</p>
+                            <p class="text-white mb-0">Дайте плейлисту название, чтобы начать наполнять его треками.</p>
                         </div>
-                        <a href="{{ path('app_playlist_index') }}" class="btn btn-outline-light">
-                            <i class="bi bi-arrow-left"></i>
-                            К списку
-                        </a>
                     </div>
-
-                    {{ include('playlist/_form.html.twig', {'form': form, 'button_label': 'Сохранить плейлист'}) }}
+                    {{ include('playlist/_form.html.twig', {'form':form, 'button_label': 'Сохранить плейлист'}) }}
                 </div>
             </div>
         </div>

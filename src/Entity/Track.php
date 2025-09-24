@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\TrackRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File; // ← Добавьте этот импорт
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: TrackRepository::class)]
+#[Vich\Uploadable]
 class Track
 {
     #[ORM\Id]
@@ -33,6 +36,9 @@ class Track
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $coverImage = null;
+
+    #[Vich\UploadableField(mapping: "tracks", fileNameProperty: "filePath")]
+    private ?File $audioFile = null;
 
     public function getId(): ?int
     {
@@ -121,6 +127,18 @@ class Track
         $this->coverImage = $coverImage;
 
         return $this;
+    }
+
+    // ↓↓↓ ДОБАВЬТЕ ЭТИ МЕТОДЫ ↓↓↓
+
+    public function setAudioFile(?File $audioFile = null): void
+    {
+        $this->audioFile = $audioFile;
+    }
+
+    public function getAudioFile(): ?File
+    {
+        return $this->audioFile;
     }
 
     public function getFormattedDuration(): ?string
