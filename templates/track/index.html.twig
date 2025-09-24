@@ -7,12 +7,18 @@
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
             <div>
                 <h1 class="h3 mb-1">Коллекция треков</h1>
-                <p class="text-muted mb-0">Управляйте аудиотекой и обновляйте метаданные.</p>
+                <p class="text-white mb-0">Управляйте аудиотекой и обновляйте метаданные.</p>
             </div>
-            <a href="{{ path('app_track_new') }}" class="btn btn-primary btn-lg d-flex align-items-center gap-2">
-                <i class="bi bi-upload"></i>
-                <span>Добавить трек</span>
-            </a>
+            <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn btn-outline-light btn-lg d-flex align-items-center gap-2" onclick="(function(){var r=document.referrer;try{if(r&&new URL(r).origin===location.origin&&r!==location.href){history.back();return;}}catch(e){}window.location.href='{{ path('home') }}';})();">
+                    <i class="bi bi-arrow-left"></i>
+                    <span>Назад</span>
+                </button>
+                <a href="{{ path('app_track_new') }}" class="btn btn-primary btn-lg d-flex align-items-center gap-2">
+                    <i class="bi bi-upload"></i>
+                    <span>Добавить трек</span>
+                </a>
+            </div>
         </div>
 
         <div class="glass-panel p-4">

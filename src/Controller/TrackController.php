@@ -46,9 +46,10 @@ class TrackController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile|null $audioFile */
             $audioFile = $form->get('audioFile')->getData();
 
-            if ($audioFile) {
+            if ($audioFile instanceof UploadedFile) {
                 $trackManager->handleUpload($track, $audioFile);
                 $trackManager->ensureDefaults($track, $audioFile->getClientOriginalName());
             } else {
@@ -142,9 +143,10 @@ class TrackController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile|null $audioFile */
             $audioFile = $form->get('audioFile')->getData();
 
-            if ($audioFile) {
+            if ($audioFile instanceof UploadedFile) {
                 $trackManager->handleUpload($track, $audioFile, true);
                 $trackManager->ensureDefaults($track, $audioFile->getClientOriginalName());
             } else {
