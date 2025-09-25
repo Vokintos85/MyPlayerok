@@ -3,5 +3,15 @@ vich_uploader:
     mappings:
         tracks:
             uri_prefix: /uploads/tracks
-            upload_destination: '%kernel.project_dir%/public/uploads/tracks'
+            upload_destination: '%app.upload_dir.tracks%'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_update: true
+            delete_on_remove: true
+
+        covers:
+            uri_prefix: /uploads/covers
+            upload_destination: '%app.upload_dir.covers%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_update: true
+            delete_on_remove: true
+
