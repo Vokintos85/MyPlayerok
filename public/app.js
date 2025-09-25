@@ -219,7 +219,12 @@
         }
         state.currentIndex = index;
         const track = tracks[index];
-        audio.src = track.audioUrl;
+        try {
+            const absoluteUrl = new URL(track.audioUrl, window.location.origin).toString();
+            audio.src = absoluteUrl;
+        } catch (e) {
+            audio.src = track.audioUrl;
+        }
         audio.load();
         updateCurrentInfo(track);
         highlightActiveTrack();
@@ -281,12 +286,17 @@
     }
 
     function togglePlay() {
-        if (state.currentIndex === -1 && state.queue.length) {
+        if (!state.queue.length) {
+            return;
+        }
+        // If nothing selected or audio has no src yet, load the first visible track
+        if (state.currentIndex === -1 || !audio.src) {
             loadTrack(state.queue[0], true, false);
             return;
         }
         if (audio.paused) {
-            audio.play().catch(() => {
+            audio.play().catch((err) => {
+                console.error('Не удалось начать воспроизведение', err, { src: audio.src });
                 updatePlayButton(false);
             });
         } else {
@@ -302,7 +312,11 @@
             }
             const probe = new Audio();
             probe.preload = 'metadata';
-            probe.src = track.audioUrl;
+            try {
+                probe.src = new URL(track.audioUrl, window.location.origin).toString();
+            } catch (e) {
+                probe.src = track.audioUrl;
+            }
             const cleanup = () => {
                 probe.src = '';
             };
@@ -421,6 +435,8 @@
     });
     audio.addEventListener('ended', () => playNext(true));
     audio.addEventListener('error', () => {
+        const mediaError = audio.error ? { code: audio.error.code, message: audio.error.message } : null;
+        console.error('Ошибка аудиоэлемента', mediaError, { src: audio.src });
         updatePlayButton(false);
     });
 

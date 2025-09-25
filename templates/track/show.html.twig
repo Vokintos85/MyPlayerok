@@ -10,9 +10,13 @@
                     <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
                         <div>
                             <h1 class="h3 mb-2">{{ track.title ?? defaults.title }}</h1>
-                            <p class="text-muted mb-0">{{ (track.artist ?? defaults.artist) ~ ' • ' ~ (track.album ?? defaults.album) }}</p>
+                            <p class="text-white mb-0">{{ (track.artist ?? defaults.artist) ~ ' • ' ~ (track.album ?? defaults.album) }}</p>
                         </div>
                         <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-outline-light" onclick="(function(){var r=document.referrer;try{if(r&&new URL(r).origin===location.origin&&r!==location.href){history.back();return;}}catch(e){}window.location.href='{{ path('home') }}';})();">
+                                <i class="bi bi-arrow-left"></i>
+                                Назад
+                            </button>
                             <a href="{{ path('app_track_edit', {'id': track.id}) }}" class="btn btn-outline-light">
                                 <i class="bi bi-pencil"></i>
                                 Редактировать
@@ -32,15 +36,15 @@
                         </div>
                         <div class="col-md-8">
                             <dl class="row gy-3 mb-0">
-                                <dt class="col-sm-4 text-muted">Исполнитель</dt>
+                                <dt class="col-sm-4 text-white">Исполнитель</dt>
                                 <dd class="col-sm-8">{{ track.artist ?? defaults.artist }}</dd>
-                                <dt class="col-sm-4 text-muted">Альбом</dt>
+                                <dt class="col-sm-4 text-white">Альбом</dt>
                                 <dd class="col-sm-8">{{ track.album ?? defaults.album }}</dd>
-                                <dt class="col-sm-4 text-muted">Жанр</dt>
+                                <dt class="col-sm-4 text-white">Жанр</dt>
                                 <dd class="col-sm-8">{{ track.genre ?? '—' }}</dd>
-                                <dt class="col-sm-4 text-muted">Длительность</dt>
+                                <dt class="col-sm-4 text-white">Длительность</dt>
                                 <dd class="col-sm-8">{{ track.formattedDuration ?? '—' }}</dd>
-                                <dt class="col-sm-4 text-muted">Файл</dt>
+                                <dt class="col-sm-4 text-white">Файл</dt>
                                 <dd class="col-sm-8">
                                     <a href="{{ asset(track.filePath) }}" class="link-light" target="_blank">{{ track.filePath }}</a>
                                 </dd>
